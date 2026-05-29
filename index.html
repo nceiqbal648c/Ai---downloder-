@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI.TravelAnywhere</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- PWA Manifest (যা কোডকে সরাসরি অ্যাপে রূপান্তর করবে) -->
+    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22AI.TravelAnywhere%22,%22short_name%22:%22TravelAnywhere%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%23000000%22,%22theme_color%22:%22%2306b6d4%22,%22icons%22:[{%22src%22:%22https://cdn-icons-png.flaticon.com/512/826/826070.png%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}]}@">
+</head>
+<body class="bg-black text-white font-sans min-h-screen flex flex-col justify-between p-6">
+
+    <!-- Header -->
+    <header class="text-center mt-6">
+        <h1 class="text-3xl font-extrabold text-cyan-400 tracking-wider">AI.TRAVELANYWHERE</h1>
+        <p class="text-xs text-gray-400 mt-2 uppercase tracking-widest">Official Travel Engine</p>
+    </header>
+
+    <!-- Main Content Box -->
+    <main class="w-full max-w-md mx-auto bg-gray-950 p-6 rounded-2xl border border-cyan-900/50 shadow-2xl my-auto">
+        <div class="mb-6">
+            <label class="block text-left text-sm font-medium text-cyan-400 mb-2">ইউটিউব ভিডিওর লিংক দাও:</label>
+            <input type="url" id="videoUrl" placeholder="https://youtube.com/..." 
+                   class="w-full bg-gray-900 p-4 rounded-xl border border-gray-800 text-white placeholder-gray-600 focus:outline-none focus:border-cyan-500 transition-all text-sm">
+        </div>
+        
+        <button onclick="startDownload()" 
+                class="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold p-4 rounded-xl transition-all shadow-lg shadow-cyan-500/20 active:scale-95 text-base">
+            🚀 ডাউনলোড টেস্ট শুরু করো
+        </button>
+    </main>
+
+    <!-- Footer / Install Button -->
+    <footer class="text-center mb-4">
+        <button id="installBtn" class="hidden mx-auto bg-gray-900 border border-cyan-500/30 text-cyan-400 px-4 py-2 rounded-full text-xs font-semibold tracking-wide animate-pulse">
+            📲 অ্যাপটি ফোনে ইনস্টল করো
+        </button>
+        <p class="text-[10px] text-gray-600 mt-4">© 2026 AI.TravelAnywhere. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function startDownload() {
+            const url = document.getElementById('videoUrl').value.trim();
+            if(!url) {
+                alert('দয়া করে আগে একটি লিংক পেস্ট করো বন্ধু!');
+                return;
+            }
+            // সরাসরি রেডিমেড এবং দ্রুত কাজ করা ইঞ্জিন রিডাইরেকশন
+            const cleanUrl = url.split('?')[0];
+            const downloadProvider = "https://en.savefrom.net/#url=" + encodeURIComponent(cleanUrl);
+            window.open(downloadProvider, '_blank');
+        }
+
+        // PWA Installation Logic
+        let deferredPrompt;
+        const installBtn = document.getElementById('installBtn');
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.classList.remove('hidden');
+        });
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    installBtn.classList.add('hidden');
+                }
+                deferredPrompt = null;
+            }
+        });
+    </script>
+</body>
+</html>
