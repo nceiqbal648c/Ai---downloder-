@@ -1,50 +1,111 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI.TravelAnywhere</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22AI.TravelAnywhere%22,%22short_name%22:%22TravelAnywhere%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%23000000%22,%22theme_color%22:%22%2306b6d4%22,%22icons%22:[{%22src%22:%22https://cdn-icons-png.flaticon.com/512/826/826070.png%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}]}@">
-</head>
-<body class="bg-black text-white font-sans min-h-screen flex flex-col justify-between p-6">
-
-    <header class="text-center mt-6">
-        <h1 class="text-3xl font-extrabold text-cyan-400 tracking-wider">AI.TRAVELANYWHERE</h1>
-        <p class="text-xs text-gray-400 mt-2 uppercase tracking-widest">Official Travel Engine</p>
-    </header>
-
-    <main class="w-full max-w-md mx-auto bg-gray-950 p-6 rounded-2xl border border-cyan-900/50 shadow-2xl my-auto">
-        <div class="mb-6">
-            <label class="block text-left text-sm font-medium text-cyan-400 mb-2">ইউটিউব ভিডিওর লিংক দাও:</label>
-            <input type="url" id="videoUrl" placeholder="https://youtube.com/..." 
-                   class="w-full bg-gray-900 p-4 rounded-xl border border-gray-800 text-white placeholder-gray-600 focus:outline-none focus:border-cyan-500 transition-all text-sm">
-        </div>
-        
-        <button onclick="startDownload()" 
-                class="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold p-4 rounded-xl transition-all shadow-lg shadow-cyan-500/20 active:scale-95 text-base">
-            🚀 ডাউনলোড টেস্ট শুরু করো
-        </button>
-    </main>
-
-    <footer class="text-center mb-4">
-        <p class="text-[10px] text-gray-600 mt-4">© 2026 AI.TravelAnywhere. All Rights Reserved.</p>
-    </footer>
-
-    <script>
-        function startDownload() {
-            const url = document.getElementById('videoUrl').value.trim();
-            if(!url) {
-                alert('দয়া করে আগে একটি লিংক পেস্ট করো বন্ধু!');
-                return;
-            }
-            
-            // নতুন এবং ক্লিন ডাউনলোড ইঞ্জিন (বিজ্ঞাপন ও রিডাইরেক্ট মুক্ত)
-            const cleanUrl = url.split('?')[0];
-            const directEngine = "https://y2mate.nu/en142/?url=" + encodeURIComponent(cleanUrl);
-            window.open(directEngine, '_blank');
+    <title>AI.TravelAnywhere | Premium Downloader</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
         }
-    </script>
+
+        /* এক কোনায় তোমার নিওন লোগো */
+        .top-corner-logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 15px #00ffff;
+            object-fit: cover;
+        }
+
+        /* গ্লোবাল ফিউচারিস্টিক থিম */
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+        }
+
+        h2 {
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        /* ফাইটার ম্যান ইকবাল ভাইয়ের ক্রেডিট ট্যাগ */
+        .creator-tag {
+            font-size: 13px;
+            color: #888;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+        .creator-tag span {
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 15px;
+            border-radius: 25px;
+            border: 2px solid #00ffff;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        /* নিওন প্রযুক্তির বাটন */
+        .neon-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #000;
+            background: #00ffff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 0 25px #00ffff;
+            transition: 0.3s;
+        }
+
+        .neon-btn:hover {
+            box-shadow: 0 0 40px #00ffff;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+
+    <img src="logo.png" class="top-corner-logo" alt="Logo">
+
+    <div class="container">
+        <h2>AI.TravelAnywhere</h2>
+        <div class="creator-tag">Developed by <span>Iqbal Ahmed</span> | @ia.travelanywhere</div>
+        
+        <input type="text" class="input-box" placeholder="Paste Video Link Here...">
+        <button class="neon-btn">Download Media</button>
+        <button class="neon-btn" style="background: transparent; color: #00ffff; border: 2px solid #00ffff; margin-top: 15px; box-shadow: none;">Install App</button>
+    </div>
+
 </body>
 </html>
